@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from "framer-motion"
 
 // Images for collage
 const images = [
-  "/images/1.jpg",
+  "/images/1.JPG",
   "/images/2.jpeg",
   "/images/3.jpeg",
   "/images/4.jpeg",
-  "/images/5.jpg",
-  "/images/6.jpg"
+  "/images/5.JPG",
+  "/images/6.JPG"
 ]
 
 export default function SceneTwo({ onNext }) {

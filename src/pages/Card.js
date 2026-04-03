@@ -125,21 +125,22 @@ export default function Card({ onBack }) {
         </div>
 
         {/* title */}
+        <center>
         <motion.div
-          className="font-handwritten text-center text-2xl mb-2"
-          initial={{ y: -140, opacity: 0, rotate: -12 }}
+          className="cutout-title font-handwritten lg mb-4"
+          initial={{ y: -120, opacity: 0, rotate: 12 }}
           animate={{
-            y: [-140, 0, -26, 0],
-            rotate: [-12, 6, -3, 0],
+            y: [-120, 0, -18, 0],
+            rotate: [12, -6, 3, 0],
             opacity: 1,
           }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, delay: 0.1 }}
         >
           Happy Birthday
         </motion.div>
 
         <motion.div
-          className="font-handwritten text-center text-xl mb-4"
+          className="cutout-title font-handwritten  mb-4"
           initial={{ y: -120, opacity: 0, rotate: 12 }}
           animate={{
             y: [-120, 0, -18, 0],
@@ -150,7 +151,8 @@ export default function Card({ onBack }) {
         >
           Sharifah
         </motion.div>
-
+        </center>
+        <br /><br />
         {/* letter */}
         <div className="font-handwritten text-base leading-relaxed text-[#5b463f]">
           Dearest Sha, <br /><br />
