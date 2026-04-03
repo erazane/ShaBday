@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-// Add your slideshow images here
+// Images for collage
 const images = [
   "/images/1.jpg",
   "/images/2.jpeg",
@@ -12,19 +12,9 @@ const images = [
 ]
 
 export default function SceneTwo({ onNext }) {
-  const [index, setIndex] = useState(0)
   const [isZoomed, setIsZoomed] = useState(false)
 
-  // Image slideshow
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((i) => (i + 1) % images.length)
-    }, 2500)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  // Click handler: if zoomed, collapse; else proceed to next scene
+  // Handle click outside
   const handleClick = () => {
     if (isZoomed) {
       setIsZoomed(false)
@@ -33,29 +23,30 @@ export default function SceneTwo({ onNext }) {
     }
   }
 
-  // Smaller size for polaroids
-  const polaroidSize = "max-w-[140px] md:max-w-[180px]" // smaller on mobile, slightly bigger on medium screens
+  const polaroidSize = "max-w-[140px] md:max-w-[180px]"
 
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center bg-[#f8f4e3] text-center cursor-pointer p-4"
       onClick={handleClick}
     >
+      {/* Text */}
       <motion.p
         className="font-handwritten text-xl mb-6 text-[#5b463f]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        we go on endless adventures together!<br /> click image below to see some of our best moments
+        we go on endless adventures together!<br />
+        click image below to see some of our moments
       </motion.p>
 
-      {/* Collage frame image */}
+      {/* Collage frame */}
       <div className="flex justify-center mb-6">
         <div
           className="frame"
           style={{ cursor: "zoom-in" }}
           onClick={(e) => {
-            e.stopPropagation() // prevent onNext from firing
+            e.stopPropagation()
             setIsZoomed((prev) => !prev)
           }}
         >
@@ -69,7 +60,7 @@ export default function SceneTwo({ onNext }) {
         </div>
       </div>
 
-      {/* Zoomed collage overlay */}
+      {/* Zoom overlay */}
       <AnimatePresence>
         {isZoomed && (
           <motion.div
@@ -78,10 +69,13 @@ export default function SceneTwo({ onNext }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
+            {/* Dark background */}
             <div
               className="absolute inset-0 bg-black/60"
               onClick={() => setIsZoomed(false)}
             />
+
+            {/* Polaroid grid */}
             <motion.div
               className="relative z-50 grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 p-2 md:p-4"
               initial={{ scale: 0.8 }}
@@ -94,8 +88,11 @@ export default function SceneTwo({ onNext }) {
                   src={img}
                   alt={`Polaroid ${i + 1}`}
                   className={`${polaroidSize} rounded-lg shadow-lg cursor-pointer`}
-                  whileHover={{ scale: 1.05, rotate: (Math.random() - 0.5) * 10 }}
-                  onClick={(e) => e.stopPropagation()} // clicking a polaroid doesn't close zoom
+                  whileHover={{
+                    scale: 1.05,
+                    rotate: (Math.random() - 0.5) * 10
+                  }}
+                  onClick={(e) => e.stopPropagation()}
                 />
               ))}
             </motion.div>
@@ -103,8 +100,11 @@ export default function SceneTwo({ onNext }) {
         )}
       </AnimatePresence>
 
+      {/* Hint text */}
       {!isZoomed && (
-        <span className="mt-10 text-xs opacity-40">(click anywhere to continue)</span>
+        <span className="mt-10 text-xs opacity-40">
+          (click anywhere to continue)
+        </span>
       )}
     </div>
   )
